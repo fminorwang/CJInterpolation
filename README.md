@@ -1,4 +1,4 @@
 # CJInterPolation
 插值算法
 
-实现三次样条插值
+[样条插值](https://github.com/fminorwang/CJInterPolation/docs/splineInterpolation.md)
