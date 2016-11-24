@@ -18,6 +18,11 @@ class CJPointParam: NSObject {
     }
 }
 
+enum InputMode {
+    case pan
+    case click
+}
+
 protocol CJTracePanelDelegate {
     func CJTracePanelView(_ panel: CJTracePanelView, didUpdate pointParams: NSArray?)
 }
@@ -25,13 +30,17 @@ protocol CJTracePanelDelegate {
 class CJTracePanelView: NSView {
     
     var delegate: CJTracePanelDelegate?
-    var isRecording: Bool = false
     
-    var pointParamArr: NSMutableArray?
-    fileprivate var timestamp: CGFloat?
+    var _inputMode: InputMode = .click
+    
+    var isRecording: Bool = false
     
     fileprivate var _timer: Timer?
     fileprivate let _timeInterval = 0.5
+    fileprivate var timestamp: CGFloat?
+    
+    var pointParamArr: NSMutableArray?
+    var fixedParamArr: Array<CJPointParam>?
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -40,6 +49,31 @@ class CJTracePanelView: NSView {
         _backgroundColor.setFill()
         NSRectFill(dirtyRect)
         
+        NSColor.black.set()
+        var _figure = NSBezierPath()
+        
+        if let _fixedParamArr = fixedParamArr {
+            for pointParam in _fixedParamArr {
+                NSColor.red.setFill()
+                NSColor.white.setStroke()
+                _figure.appendRect(NSRect(x: pointParam.location.x - 3.0, y: pointParam.location.y - 3.0, width: 6.0, height: 6.0))
+                _figure.fill()
+                _figure = NSBezierPath()
+            }
+            
+            if self.isRecording && _fixedParamArr.count > 1 {
+                let _firstPoint = _fixedParamArr[0]
+                _figure.move(to: _firstPoint.location)
+                for pointParam in _fixedParamArr {
+                    _figure.line(to: pointParam.location)
+                }
+                NSColor.black.setStroke()
+                _figure.lineWidth = 1.0
+                _figure.stroke()
+                _figure = NSBezierPath()
+            }
+        }
+        
         guard let _pointParamArr = pointParamArr else {
             return
         }
@@ -47,9 +81,6 @@ class CJTracePanelView: NSView {
         if _pointParamArr.count < 2 {
             return
         }
-        
-        NSColor.black.set()
-        let _figure = NSBezierPath()
         
         let _startPointParam = _pointParamArr.object(at: 0) as! CJPointParam
         let _startPoint = _startPointParam.location
@@ -61,6 +92,7 @@ class CJTracePanelView: NSView {
             _figure.line(to: _point)
         }
         
+        NSColor.black.setStroke()
         _figure.lineWidth = 1.0
         _figure.stroke()
     }
@@ -78,13 +110,14 @@ class CJTracePanelView: NSView {
     }
     
     func _logLocation(with event: NSEvent) {
-//        let _location = event.locationInWindow
-//        NSLog("(%f, %f)", _location.x, _location.y)
+        
     }
 }
 
+// click mode
 extension CJTracePanelView {
-    func startRecordMouseLoaction() {
+    func startRecordClickLocation() {
+        _inputMode = .click
         if ( isRecording ) {
             return
         }
@@ -92,6 +125,48 @@ extension CJTracePanelView {
         isRecording = true
         timestamp = 0.0
         pointParamArr = NSMutableArray()
+        fixedParamArr = Array()
+        
+        let _clickGesture = NSClickGestureRecognizer(target: self, action: #selector(_actionClick))
+        objc_setAssociatedObject(self, "click_gesture", _clickGesture, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        self.addGestureRecognizer(_clickGesture)
+    }
+    
+    func stopRecordClickLocation() -> Void {
+        isRecording = false
+        let _clickGesture = objc_getAssociatedObject(self, "click_gesture")
+        if let _clickGesture = _clickGesture {
+            self.removeGestureRecognizer(_clickGesture as! NSGestureRecognizer)
+        }
+        timestamp = 0.0
+        pointParamArr = NSMutableArray()
+        fixedParamArr = Array()
+    }
+    
+    func _actionClick() -> Void {
+        let _location = self.window?.mouseLocationOutsideOfEventStream
+        if let _location = _location {
+            let _pointParam = CJPointParam(location: _location, time: timestamp!)
+            fixedParamArr?.append(_pointParam)
+        }
+        
+        timestamp = timestamp! + CGFloat(_timeInterval)
+        self.setNeedsDisplay(self.frame)
+    }
+}
+
+// pan mode
+extension CJTracePanelView {
+    func startRecordMouseLoaction() {
+        if ( isRecording ) {
+            return
+        }
+        
+        _inputMode = .pan
+        isRecording = true
+        timestamp = 0.0
+        pointParamArr = NSMutableArray()
+        fixedParamArr = Array()
         _timer = Timer.scheduledTimer(timeInterval: _timeInterval, target: self, selector: #selector(_recordCurrentMouseLocation), userInfo: nil, repeats: true)
     }
     
@@ -99,7 +174,7 @@ extension CJTracePanelView {
         let _location = self.window?.mouseLocationOutsideOfEventStream
         if let _location = _location {
             let _pointParam = CJPointParam(location: _location, time: timestamp!)
-            pointParamArr?.add(_pointParam)
+            fixedParamArr?.append(_pointParam)
             
             if _checkPointIsOutside(point: _location) {
                 _timer?.invalidate()

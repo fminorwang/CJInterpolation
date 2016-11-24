@@ -12,21 +12,30 @@ class ViewController: NSViewController, CJTracePanelDelegate {
 
     @IBOutlet var textView: NSTextView!
     @IBOutlet weak var drawPanel: CJTracePanelView!
-    @IBOutlet weak var computeButton: NSButton!
     
     var startTime = 9.0
     var originPoint: CGPoint?
     
     override func viewDidLoad() {
-
         super.viewDidLoad()
         
         let _click = NSClickGestureRecognizer(target: self, action: #selector(gestureHandler(sender:)))
         drawPanel.addGestureRecognizer(_click)
         drawPanel.delegate = self
+//        drawPanel.startRecordClickLocation()
         
-        computeButton.target = self
-        computeButton.action = #selector(_actionCompute)
+        NotificationCenter.default.addObserver(self, selector: #selector(_actionInterpolate),
+                                               name: NSNotification.Name(rawValue: kNotificationNameStartInterpolation), object: nil)
+    }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        self.view.window?.titlebarAppearsTransparent = true
+        self.view.window?.styleMask.insert(.unifiedTitleAndToolbar)
+        
+        let _titleBar = self.storyboard?.instantiateController(withIdentifier: "titleBarController") as! NSTitlebarAccessoryViewController
+        self.view.window?.addTitlebarAccessoryViewController(_titleBar)
     }
 
     override var representedObject: Any? {
@@ -79,7 +88,7 @@ class ViewController: NSViewController, CJTracePanelDelegate {
     }
     
     func _actionCompute() {
-        guard let points = drawPanel.pointParamArr else {
+        guard let points = drawPanel.fixedParamArr else {
             return
         }
         let _computorx = CJSplineInterpolation()
@@ -87,7 +96,7 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         var _array_x = Array<CJInterpolationPoint>()
         var _array_y = Array<CJInterpolationPoint>()
         for i in 0...points.count - 1 {
-            let _point = points[i] as! CJPointParam
+            let _point = points[i]
             let _t = _point.time
             let _x = _point.location.x
             let _y = _point.location.y
@@ -103,15 +112,20 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         _computory.solve()
         
         let _newArr = NSMutableArray()
-        for i in stride(from: 0.0, to: (points.lastObject as! CJPointParam).time, by: 0.01) {
+        for i in stride(from: 0.0, to: points.last!.time + 0.01, by: 0.01) {
             let _location = NSPoint(x: _computorx.interpolate(at: Double(i)), y: _computory.interpolate(at: Double(i)))
             let _point = CJPointParam(location: _location, time: i)
             _newArr.add(_point)
         }
         drawPanel.pointParamArr = _newArr
         drawPanel.setNeedsDisplay(drawPanel.frame)
+//        drawPanel.stopRecordClickLocation()
         
         _log(pointParams: _newArr)
+    }
+    
+    func _actionInterpolate() -> Void {
+        _actionCompute()
     }
 }
 

@@ -7,6 +7,41 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Title Bar Controller-->
+        <scene sceneID="4X2-2v-2xZ">
+            <objects>
+                <viewController storyboardIdentifier="titleBarController" id="Ozs-OZ-MSj" customClass="CJTitleBarController" customModule="QTFeatureAdPathGenerator" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="GFi-N8-v58">
+                        <rect key="frame" x="0.0" y="0.0" width="219" height="55"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xum-dr-CtL">
+                                <rect key="frame" x="9" y="6" width="117" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="o3g-g6-IKu"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Interpolation" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OEg-k7-yKL">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="_actionStartInterpolation:" target="Ozs-OZ-MSj" id="JES-bT-bJg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="xum-dr-CtL" firstAttribute="centerY" secondItem="GFi-N8-v58" secondAttribute="centerY" id="KbC-VP-MYv"/>
+                            <constraint firstItem="xum-dr-CtL" firstAttribute="leading" secondItem="GFi-N8-v58" secondAttribute="leading" constant="15" id="zri-LK-Xwh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="interpolationButton" destination="xum-dr-CtL" id="0Nx-np-ALm"/>
+                    </connections>
+                </viewController>
+                <customObject id="bai-lH-3J0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-243.5" y="-251.5"/>
+        </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
@@ -339,6 +374,19 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Mode" id="7mS-Gf-jET">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" id="P6K-Ld-FLy">
+                                    <items>
+                                        <menuItem title="Pan" state="on" id="awy-7X-0qg">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                        <menuItem title="Click" id="hZY-Qu-2G0">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
                             <menuItem title="Format" id="jxT-CU-nIS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Format" id="GEO-Iw-cKr">
@@ -659,7 +707,7 @@
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="QTFeatureAdPathGenerator" customModuleProvider="target"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="-175"/>
+            <point key="canvasLocation" x="-64" y="-155"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -719,32 +767,18 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34i-fP-keg">
-                                <rect key="frame" x="376" y="35" width="80" height="41"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="0Kk-Mn-8v0"/>
-                                    <constraint firstAttribute="width" constant="80" id="qmn-j4-H8r"/>
-                                </constraints>
-                                <buttonCell key="cell" type="roundRect" title="Round Rect" bezelStyle="roundedRect" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="FeF-tT-Hq7">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="cellTitle"/>
-                                </buttonCell>
-                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="MAa-vL-E9i" secondAttribute="bottom" id="BWq-NH-BS3"/>
                             <constraint firstItem="MAa-vL-E9i" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="Fz1-Jj-n2O"/>
                             <constraint firstAttribute="trailing" secondItem="MAa-vL-E9i" secondAttribute="trailing" id="U0d-Yy-FdX"/>
-                            <constraint firstItem="34i-fP-keg" firstAttribute="leading" secondItem="1fD-KU-ZgL" secondAttribute="trailing" constant="39" id="aoT-jG-v9b"/>
                             <constraint firstItem="1fD-KU-ZgL" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="bhF-G3-gDP"/>
                             <constraint firstItem="1fD-KU-ZgL" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="heN-n5-pnr"/>
                             <constraint firstItem="MAa-vL-E9i" firstAttribute="leading" secondItem="1fD-KU-ZgL" secondAttribute="trailing" constant="8" id="qEx-nO-rv2"/>
                             <constraint firstAttribute="bottom" secondItem="1fD-KU-ZgL" secondAttribute="bottom" id="s4Z-Iw-70Z"/>
-                            <constraint firstAttribute="bottom" secondItem="34i-fP-keg" secondAttribute="bottom" constant="36" id="vKq-ON-OaA"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="computeButton" destination="34i-fP-keg" id="IIk-X6-Rse"/>
                         <outlet property="drawPanel" destination="1fD-KU-ZgL" id="i53-eK-Opo"/>
                         <outlet property="textView" destination="JaF-gV-sso" id="vvs-yY-C7t"/>
                     </connections>
