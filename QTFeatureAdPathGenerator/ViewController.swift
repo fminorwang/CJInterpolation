@@ -13,7 +13,7 @@ class ViewController: NSViewController, CJTracePanelDelegate {
     @IBOutlet var textView: NSTextView!
     @IBOutlet weak var drawPanel: CJTracePanelView!
     
-    var startTime = 9.0
+    var startTime = 7.0
     var originPoint: CGPoint?
     
     override func viewDidLoad() {
@@ -22,7 +22,7 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         let _click = NSClickGestureRecognizer(target: self, action: #selector(gestureHandler(sender:)))
         drawPanel.addGestureRecognizer(_click)
         drawPanel.delegate = self
-//        drawPanel.startRecordClickLocation()
+        drawPanel.startRecordClickLocation()
         
         NotificationCenter.default.addObserver(self, selector: #selector(_actionInterpolate),
                                                name: NSNotification.Name(rawValue: kNotificationNameStartInterpolation), object: nil)
@@ -93,8 +93,8 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         }
         let _computorx = CJSplineInterpolation()
         let _computory = CJSplineInterpolation()
-        var _array_x = Array<CJInterpolationPoint>()
-        var _array_y = Array<CJInterpolationPoint>()
+        var _array_x = Array<CJInterpolationPoint<Double>>()
+        var _array_y = Array<CJInterpolationPoint<Double>>()
         for i in 0...points.count - 1 {
             let _point = points[i]
             let _t = _point.time
@@ -119,7 +119,7 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         }
         drawPanel.pointParamArr = _newArr
         drawPanel.setNeedsDisplay(drawPanel.frame)
-//        drawPanel.stopRecordClickLocation()
+        drawPanel.stopRecordClickLocation()
         
         _log(pointParams: _newArr)
     }

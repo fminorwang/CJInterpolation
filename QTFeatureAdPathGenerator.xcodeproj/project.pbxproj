@@ -13,6 +13,7 @@
 		206FFC331DDC1523006FBD62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 206FFC311DDC1523006FBD62 /* Main.storyboard */; };
 		206FFC3B1DDC2A00006FBD62 /* CJTracePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FFC3A1DDC2A00006FBD62 /* CJTracePanelView.swift */; };
 		20BF2BEC1DE6F65100226835 /* CJTitleBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF2BEB1DE6F65100226835 /* CJTitleBarController.swift */; };
+		20DCA7C91E0D2CDF00B70581 /* CJSplineInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DCA7C81E0D2CDF00B70581 /* CJSplineInterpolation.swift */; };
 		20DEA7B31DDC670F0081AEA4 /* CJInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEA7B21DDC670F0081AEA4 /* CJInterpolation.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		206FFC341DDC1523006FBD62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		206FFC3A1DDC2A00006FBD62 /* CJTracePanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJTracePanelView.swift; sourceTree = "<group>"; };
 		20BF2BEB1DE6F65100226835 /* CJTitleBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJTitleBarController.swift; sourceTree = "<group>"; };
+		20DCA7C81E0D2CDF00B70581 /* CJSplineInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJSplineInterpolation.swift; sourceTree = "<group>"; };
 		20DEA7B11DDC64440081AEA4 /* bridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bridge.h; sourceTree = "<group>"; };
 		20DEA7B21DDC670F0081AEA4 /* CJInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJInterpolation.swift; sourceTree = "<group>"; };
 		5CB0A6CA199ED9B799F64696 /* libPods-QTFeatureAdPathGenerator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QTFeatureAdPathGenerator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +66,7 @@
 		206FFC2A1DDC1522006FBD62 /* QTFeatureAdPathGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				20DCA7C71E0D2C6500B70581 /* Interpolation */,
 				206FFC2B1DDC1522006FBD62 /* AppDelegate.swift */,
 				20BF2BEB1DE6F65100226835 /* CJTitleBarController.swift */,
 				206FFC2D1DDC1522006FBD62 /* ViewController.swift */,
@@ -72,9 +75,17 @@
 				206FFC311DDC1523006FBD62 /* Main.storyboard */,
 				206FFC341DDC1523006FBD62 /* Info.plist */,
 				20DEA7B11DDC64440081AEA4 /* bridge.h */,
-				20DEA7B21DDC670F0081AEA4 /* CJInterpolation.swift */,
 			);
 			path = QTFeatureAdPathGenerator;
+			sourceTree = "<group>";
+		};
+		20DCA7C71E0D2C6500B70581 /* Interpolation */ = {
+			isa = PBXGroup;
+			children = (
+				20DEA7B21DDC670F0081AEA4 /* CJInterpolation.swift */,
+				20DCA7C81E0D2CDF00B70581 /* CJSplineInterpolation.swift */,
+			);
+			name = Interpolation;
 			sourceTree = "<group>";
 		};
 		9CBA24CC02309609D66F1E15 /* Pods */ = {
@@ -167,6 +178,7 @@
 			files = (
 				206FFC2E1DDC1522006FBD62 /* ViewController.swift in Sources */,
 				20DEA7B31DDC670F0081AEA4 /* CJInterpolation.swift in Sources */,
+				20DCA7C91E0D2CDF00B70581 /* CJSplineInterpolation.swift in Sources */,
 				206FFC3B1DDC2A00006FBD62 /* CJTracePanelView.swift in Sources */,
 				206FFC2C1DDC1522006FBD62 /* AppDelegate.swift in Sources */,
 				20BF2BEC1DE6F65100226835 /* CJTitleBarController.swift in Sources */,

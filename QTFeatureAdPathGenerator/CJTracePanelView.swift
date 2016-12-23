@@ -139,8 +139,8 @@ extension CJTracePanelView {
             self.removeGestureRecognizer(_clickGesture as! NSGestureRecognizer)
         }
         timestamp = 0.0
-        pointParamArr = NSMutableArray()
-        fixedParamArr = Array()
+//        pointParamArr = NSMutableArray()
+//        fixedParamArr = Array()
     }
     
     func _actionClick() -> Void {
