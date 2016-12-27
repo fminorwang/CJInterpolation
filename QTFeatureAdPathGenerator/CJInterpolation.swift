@@ -18,8 +18,20 @@ class CJInterpolationPoint<T>: NSObject {
     }
 }
 
-class CJInterpolation<T>: NSObject {
-    var fixedPoints: Array<CJInterpolationPoint<T>>?
+protocol CJInterpolation {
+    associatedtype T
+    var fixedPoints: [CJInterpolationPoint<T>]? { get set }
+    
+    var pointCount: Int { get }
+    
+    var functionCount: Int { get }
+    
+    func solve()
+    
+    func interpolate(at input: T) -> T
+}
+
+extension CJInterpolation {
     var pointCount: Int {
         get {
             return (fixedPoints?.count)!

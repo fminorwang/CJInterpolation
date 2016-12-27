@@ -93,8 +93,10 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         guard let points = drawPanel.fixedParamArr else {
             return
         }
-        let _computorx = CJSplineInterpolation()
-        let _computory = CJSplineInterpolation()
+//        let _computorx = CJSplineInterpolation()
+//        let _computory = CJSplineInterpolation()
+        let _computorx = CJPolynomialInterpolation()
+        let _computory = CJPolynomialInterpolation()
         var _array_x = Array<CJInterpolationPoint<Double>>()
         var _array_y = Array<CJInterpolationPoint<Double>>()
         for i in 0...points.count - 1 {

@@ -8,10 +8,13 @@
 
 import Cocoa
 
-class CJSplineInterpolation: CJInterpolation<Double> {
+class CJSplineInterpolation: CJInterpolation {
     
-    var h = Array<Double>()         // h[i] = x[i+1] - x[i] , 共 n - 1 个
-    var z = Array<Double>()          // z: 共 n 个
+    typealias T = Double
+    internal var fixedPoints: [CJInterpolationPoint<T>]?
+    
+    var h = [T]()         // h[i] = x[i+1] - x[i] , 共 n - 1 个
+    var z = [T]()          // z: 共 n 个
     
     func solve() {
         guard let _fixedPoints = fixedPoints else {
