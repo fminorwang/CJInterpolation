@@ -9,6 +9,7 @@
 import Cocoa
 
 let kNotificationNameStartInterpolation = "startInterpolation"
+let kNotificationNameClearInterpolation = "clearInterpolation"
 
 class CJTitleBarController: NSTitlebarAccessoryViewController {
     
@@ -23,4 +24,7 @@ class CJTitleBarController: NSTitlebarAccessoryViewController {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: kNotificationNameStartInterpolation), object: nil)
     }
     
+    @IBAction func _actionClear(_ sender: Any) {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: kNotificationNameClearInterpolation), object: nil)
+    }
 }

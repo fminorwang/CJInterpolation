@@ -12,7 +12,7 @@
             <objects>
                 <viewController storyboardIdentifier="titleBarController" id="Ozs-OZ-MSj" customClass="CJTitleBarController" customModule="QTFeatureAdPathGenerator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="GFi-N8-v58">
-                        <rect key="frame" x="0.0" y="0.0" width="219" height="55"/>
+                        <rect key="frame" x="0.0" y="0.0" width="263" height="55"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xum-dr-CtL">
@@ -28,9 +28,23 @@
                                     <action selector="_actionStartInterpolation:" target="Ozs-OZ-MSj" id="JES-bT-bJg"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iQe-oR-OER">
+                                <rect key="frame" x="126" y="6" width="72" height="41"/>
+                                <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gTx-ZT-bhw">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="_actionClear:" target="Ozs-OZ-MSj" id="BlX-PK-oVO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="xum-dr-CtL" firstAttribute="centerY" secondItem="GFi-N8-v58" secondAttribute="centerY" id="KbC-VP-MYv"/>
+                            <constraint firstItem="iQe-oR-OER" firstAttribute="height" secondItem="xum-dr-CtL" secondAttribute="height" id="ayr-OS-qgZ"/>
+                            <constraint firstItem="iQe-oR-OER" firstAttribute="centerY" secondItem="GFi-N8-v58" secondAttribute="centerY" id="hpR-Yt-3cC"/>
+                            <constraint firstItem="xum-dr-CtL" firstAttribute="centerY" secondItem="GFi-N8-v58" secondAttribute="centerY" id="i8w-3q-T8U"/>
+                            <constraint firstItem="iQe-oR-OER" firstAttribute="leading" secondItem="xum-dr-CtL" secondAttribute="trailing" constant="12" id="lGA-p7-mhQ"/>
                             <constraint firstItem="xum-dr-CtL" firstAttribute="leading" secondItem="GFi-N8-v58" secondAttribute="leading" constant="15" id="zri-LK-Xwh"/>
                         </constraints>
                     </view>
@@ -40,7 +54,7 @@
                 </viewController>
                 <customObject id="bai-lH-3J0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-243.5" y="-251.5"/>
+            <point key="canvasLocation" x="-221.5" y="-251.5"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">

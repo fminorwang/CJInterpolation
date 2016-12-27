@@ -26,6 +26,8 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(_actionInterpolate),
                                                name: NSNotification.Name(rawValue: kNotificationNameStartInterpolation), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(_actionClear),
+                                               name: NSNotification.Name(rawValue: kNotificationNameClearInterpolation), object: nil)
     }
     
     override func viewDidAppear() {
@@ -50,16 +52,16 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         }
     }
 
-    func CJTracePanelView(_ panel: CJTracePanelView, didUpdate pointParams: NSArray?) {
+    func CJTracePanelView(_ panel: CJTracePanelView, didUpdate pointParams: [CJPointParam]?) {
         _log(pointParams: pointParams)
     }
     
-    func _log(pointParams: NSArray? ) {
+    func _log(pointParams: [CJPointParam]? ) {
         if let _pointParams = pointParams {
             var _logString = String()
             for _pointParam in _pointParams {
                 
-                let _convertedParam = _convertPointParam(from: _pointParam as! CJPointParam, width: 1080.0, height: 270.0)
+                let _convertedParam = _convertPointParam(from: _pointParam, width: 1080.0, height: 270.0)
                 let _location = _convertedParam.location
                 let _time = _convertedParam.time
                 
@@ -111,11 +113,11 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         _computorx.solve()
         _computory.solve()
         
-        let _newArr = NSMutableArray()
+        var _newArr = [CJPointParam]()
         for i in stride(from: 0.0, to: points.last!.time + 0.01, by: 0.01) {
             let _location = NSPoint(x: _computorx.interpolate(at: Double(i)), y: _computory.interpolate(at: Double(i)))
             let _point = CJPointParam(location: _location, time: i)
-            _newArr.add(_point)
+            _newArr.append(_point)
         }
         drawPanel.pointParamArr = _newArr
         drawPanel.setNeedsDisplay(drawPanel.frame)
@@ -126,6 +128,11 @@ class ViewController: NSViewController, CJTracePanelDelegate {
     
     func _actionInterpolate() -> Void {
         _actionCompute()
+    }
+    
+    func _actionClear() {
+        drawPanel.clear()
+        textView.string = ""
     }
 }
 

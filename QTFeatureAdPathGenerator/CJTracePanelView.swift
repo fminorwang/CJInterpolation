@@ -24,7 +24,7 @@ enum InputMode {
 }
 
 protocol CJTracePanelDelegate {
-    func CJTracePanelView(_ panel: CJTracePanelView, didUpdate pointParams: NSArray?)
+    func CJTracePanelView(_ panel: CJTracePanelView, didUpdate pointParams: [CJPointParam]?)
 }
 
 class CJTracePanelView: NSView {
@@ -39,8 +39,8 @@ class CJTracePanelView: NSView {
     fileprivate let _timeInterval = 0.5
     fileprivate var timestamp: CGFloat?
     
-    var pointParamArr: NSMutableArray?
-    var fixedParamArr: Array<CJPointParam>?
+    var pointParamArr: [CJPointParam]?
+    var fixedParamArr: [CJPointParam]?
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -82,12 +82,12 @@ class CJTracePanelView: NSView {
             return
         }
         
-        let _startPointParam = _pointParamArr.object(at: 0) as! CJPointParam
+        let _startPointParam = _pointParamArr[0]
         let _startPoint = _startPointParam.location
         _figure.move(to: _startPoint)
         
         for i in 1...(_pointParamArr.count - 1) {
-            let _pointParam = _pointParamArr.object(at: i) as! CJPointParam
+            let _pointParam = _pointParamArr[i]
             let _point = _pointParam.location
             _figure.line(to: _point)
         }
@@ -112,6 +112,14 @@ class CJTracePanelView: NSView {
     func _logLocation(with event: NSEvent) {
         
     }
+    
+    func clear() {
+        isRecording = false
+        pointParamArr = []
+        fixedParamArr = []
+        
+        self.setNeedsDisplay(self.bounds)
+    }
 }
 
 // click mode
@@ -124,8 +132,8 @@ extension CJTracePanelView {
         
         isRecording = true
         timestamp = 0.0
-        pointParamArr = NSMutableArray()
-        fixedParamArr = Array()
+        pointParamArr = []
+        fixedParamArr = []
         
         let _clickGesture = NSClickGestureRecognizer(target: self, action: #selector(_actionClick))
         objc_setAssociatedObject(self, "click_gesture", _clickGesture, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -139,8 +147,6 @@ extension CJTracePanelView {
             self.removeGestureRecognizer(_clickGesture as! NSGestureRecognizer)
         }
         timestamp = 0.0
-//        pointParamArr = NSMutableArray()
-//        fixedParamArr = Array()
     }
     
     func _actionClick() -> Void {
@@ -165,8 +171,8 @@ extension CJTracePanelView {
         _inputMode = .pan
         isRecording = true
         timestamp = 0.0
-        pointParamArr = NSMutableArray()
-        fixedParamArr = Array()
+        pointParamArr = []
+        fixedParamArr = []
         _timer = Timer.scheduledTimer(timeInterval: _timeInterval, target: self, selector: #selector(_recordCurrentMouseLocation), userInfo: nil, repeats: true)
     }
     
