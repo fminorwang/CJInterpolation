@@ -10,11 +10,19 @@ import Cocoa
 
 class CJSplineInterpolation: CJInterpolation {
     
-    typealias T = Double
-    internal var fixedPoints: [CJInterpolationPoint<T>]?
+    typealias Input = Double
+    typealias Output = Double
     
-    var h = [T]()         // h[i] = x[i+1] - x[i] , 共 n - 1 个
-    var z = [T]()          // z: 共 n 个
+    var fixedPoints: [CJAlgorithmData<Input, Output>]?
+    
+    var functionCount: Int {
+        get {
+            return self.pointCount - 1
+        }
+    }
+    
+    fileprivate var h = [Input]()         // h[i] = x[i+1] - x[i] , 共 n - 1 个
+    fileprivate var z = [Input]()          // z: 共 n 个
     
     func solve() {
         guard let _fixedPoints = fixedPoints else {
@@ -23,13 +31,13 @@ class CJSplineInterpolation: CJInterpolation {
         
         h = Array<Double>()
         for i in 0...self.functionCount - 1 {
-            h.insert(_fixedPoints[i+1].input - _fixedPoints[i].input, at: i)
+            h.insert(_fixedPoints[i+1].x - _fixedPoints[i].x, at: i)
         }
         
-        var a = Array<Double>()
-        var b = Array<Double>()
-        var c = Array<Double>()
-        var r = Array<Double>()
+        var a = [Double]()
+        var b = [Double]()
+        var c = [Double]()
+        var r = [Double]()
         for i in 0...self.pointCount - 1 {
             if i == 0 {
                 a.append(0.0)
@@ -49,8 +57,8 @@ class CJSplineInterpolation: CJInterpolation {
             b.append(2 * ( h[i-1] + h[i] ))
             c.append(h[i])
             
-            let _part1 = ( _fixedPoints[i+1].value - _fixedPoints[i].value ) / h[i];
-            let _part2 = ( _fixedPoints[i].value - _fixedPoints[i-1].value ) / h[i-1];
+            let _part1 = ( _fixedPoints[i+1].y - _fixedPoints[i].y ) / h[i];
+            let _part2 = ( _fixedPoints[i].y - _fixedPoints[i-1].y ) / h[i-1];
             let _r = 6 * ( _part1 - _part2 );
             r.append(_r)
         }
@@ -63,14 +71,14 @@ class CJSplineInterpolation: CJInterpolation {
             return 0.0
         }
         
-        if input < pts[0].input || input > (pts.last?.input)! {
+        if input < pts[0].x || input > (pts.last?.x)! {
             return 0.0
         }
         
         var i = 0
         for j in 0...self.functionCount - 1 {
             i = j
-            if (self.fixedPoints?[i+1].input)! > input {
+            if (self.fixedPoints?[i+1].x)! > input {
                 break
             }
         }
@@ -78,11 +86,11 @@ class CJSplineInterpolation: CJInterpolation {
         // Si(x) = (z[i+1](x-x[i])^3 + z[i](x[i+1]-x)^3)/6h[i] + (y[i+1]/h[i] - h[i]/6*z[i+1])(x-x[i])
         //  + (y[i]/h[i] - h[i]z[i]/6)(x[i+1]-x)
         
-        let x_xi = input - pts[i].input
-        let xi1_x = pts[i+1].input - input
+        let x_xi = input - pts[i].x
+        let xi1_x = pts[i+1].x - input
         let _p1 = ( z[i+1] * x_xi * x_xi * x_xi + z[i] * xi1_x * xi1_x * xi1_x ) / ( 6.0 * h[i] )
-        let _p2 = ( pts[i+1].value / h[i] - h[i] * z[i+1] / 6.0 ) * x_xi
-        let _p3 = ( pts[i].value / h[i] - h[i] * z[i] / 6.0 ) * xi1_x
+        let _p2 = ( pts[i+1].y / h[i] - h[i] * z[i+1] / 6.0 ) * x_xi
+        let _p3 = ( pts[i].y / h[i] - h[i] * z[i] / 6.0 ) * xi1_x
         return _p1 + _p2 + _p3
     }
     

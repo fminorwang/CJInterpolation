@@ -93,31 +93,47 @@ class ViewController: NSViewController, CJTracePanelDelegate {
         guard let points = drawPanel.fixedParamArr else {
             return
         }
+        
+        let _fitting = CJSimpleLinearRegressionFitting()
+        
 //        let _computorx = CJSplineInterpolation()
 //        let _computory = CJSplineInterpolation()
-        let _computorx = CJPolynomialInterpolation()
-        let _computory = CJPolynomialInterpolation()
-        var _array_x = Array<CJInterpolationPoint<Double>>()
-        var _array_y = Array<CJInterpolationPoint<Double>>()
+        
+//        let _computorx = CJPolynomialInterpolation()
+//        let _computory = CJPolynomialInterpolation()
+        
+        var _array_x = [CJAlgorithmData<Double, Double>]()
+        var _array_y = [CJAlgorithmData<Double, Double>]()
+        var _fittingInputs = [CJAlgorithmData<Double, Double>]()
+        
         for i in 0...points.count - 1 {
             let _point = points[i]
             let _t = _point.time
-            let _x = _point.location.x
-            let _y = _point.location.y
+            let _x = Double(_point.location.x)
+            let _y = Double(_point.location.y)
             
-            _array_x.append(CJInterpolationPoint(input: Double(_t), value: Double(_x)))
-            _array_y.append(CJInterpolationPoint(input: Double(_t), value: Double(_y)))
+            _array_x.append(CJAlgorithmData(x: Double(_t), y: Double(_x)))
+            _array_y.append(CJAlgorithmData(x: Double(_t), y: Double(_y)));
+            _fittingInputs.append(CJAlgorithmData(x: _x, y: _y))
         }
         
-        _computorx.fixedPoints = _array_x
-        _computory.fixedPoints = _array_y
+//        _computorx.fixedPoints = _array_x
+//        _computory.fixedPoints = _array_y
         
-        _computorx.solve()
-        _computory.solve()
+//        _computorx.solve()
+//        _computory.solve()
+        
+        _fitting.fixedPoints = _fittingInputs
+        _fitting.solve()
         
         var _newArr = [CJPointParam]()
-        for i in stride(from: 0.0, to: points.last!.time + 0.01, by: 0.01) {
-            let _location = NSPoint(x: _computorx.interpolate(at: Double(i)), y: _computory.interpolate(at: Double(i)))
+//        for i in stride(from: 0.0, to: points.last!.time + 0.01, by: 0.01) {
+//            let _location = NSPoint(x: _computorx.interpolate(at: Double(i)), y: _computory.interpolate(at: Double(i)))
+//            let _point = CJPointParam(location: _location, time: i)
+//            _newArr.append(_point)
+//        }
+        for i in stride(from: 0.0, to: drawPanel.bounds.width, by: 0.5) {
+            let _location = NSPoint(x: Double(i), y: _fitting.estimateValue(at: Double(i)))
             let _point = CJPointParam(location: _location, time: i)
             _newArr.append(_point)
         }

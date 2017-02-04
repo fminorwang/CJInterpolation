@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		206B62271E34BCB800D5EBC0 /* CJFitting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206B62261E34BCB800D5EBC0 /* CJFitting.swift */; };
+		206B622A1E34BD3900D5EBC0 /* CJAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206B62291E34BD3900D5EBC0 /* CJAlgorithm.swift */; };
 		206FFC2C1DDC1522006FBD62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FFC2B1DDC1522006FBD62 /* AppDelegate.swift */; };
 		206FFC2E1DDC1522006FBD62 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FFC2D1DDC1522006FBD62 /* ViewController.swift */; };
 		206FFC301DDC1522006FBD62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 206FFC2F1DDC1522006FBD62 /* Assets.xcassets */; };
 		206FFC331DDC1523006FBD62 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 206FFC311DDC1523006FBD62 /* Main.storyboard */; };
 		206FFC3B1DDC2A00006FBD62 /* CJTracePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206FFC3A1DDC2A00006FBD62 /* CJTracePanelView.swift */; };
+		2098A5DE1E44679200D46B4C /* CJLinearRegressionFitting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2098A5DD1E44679200D46B4C /* CJLinearRegressionFitting.swift */; };
+		2098A5E11E45810100D46B4C /* CJMatrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2098A5E01E45810100D46B4C /* CJMatrix.swift */; };
 		20BF2BEC1DE6F65100226835 /* CJTitleBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BF2BEB1DE6F65100226835 /* CJTitleBarController.swift */; };
 		20DAC2F81E12503700B7E11F /* CJPolynomialInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DAC2F71E12503700B7E11F /* CJPolynomialInterpolation.swift */; };
 		20DCA7C91E0D2CDF00B70581 /* CJSplineInterpolation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DCA7C81E0D2CDF00B70581 /* CJSplineInterpolation.swift */; };
@@ -19,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		206B62261E34BCB800D5EBC0 /* CJFitting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJFitting.swift; sourceTree = "<group>"; };
+		206B62291E34BD3900D5EBC0 /* CJAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJAlgorithm.swift; sourceTree = "<group>"; };
 		206FFC281DDC1522006FBD62 /* QTFeatureAdPathGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QTFeatureAdPathGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		206FFC2B1DDC1522006FBD62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		206FFC2D1DDC1522006FBD62 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -26,6 +32,8 @@
 		206FFC321DDC1523006FBD62 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		206FFC341DDC1523006FBD62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		206FFC3A1DDC2A00006FBD62 /* CJTracePanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJTracePanelView.swift; sourceTree = "<group>"; };
+		2098A5DD1E44679200D46B4C /* CJLinearRegressionFitting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJLinearRegressionFitting.swift; sourceTree = "<group>"; };
+		2098A5E01E45810100D46B4C /* CJMatrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJMatrix.swift; sourceTree = "<group>"; };
 		20BF2BEB1DE6F65100226835 /* CJTitleBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJTitleBarController.swift; sourceTree = "<group>"; };
 		20DAC2F71E12503700B7E11F /* CJPolynomialInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJPolynomialInterpolation.swift; sourceTree = "<group>"; };
 		20DCA7C81E0D2CDF00B70581 /* CJSplineInterpolation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CJSplineInterpolation.swift; sourceTree = "<group>"; };
@@ -47,6 +55,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		206B62251E34BB7700D5EBC0 /* fitting */ = {
+			isa = PBXGroup;
+			children = (
+				2098A5DD1E44679200D46B4C /* CJLinearRegressionFitting.swift */,
+			);
+			name = fitting;
+			sourceTree = "<group>";
+		};
+		206B62281E34BD0C00D5EBC0 /* basic */ = {
+			isa = PBXGroup;
+			children = (
+				20DEA7B21DDC670F0081AEA4 /* CJInterpolation.swift */,
+				206B62261E34BCB800D5EBC0 /* CJFitting.swift */,
+				206B62291E34BD3900D5EBC0 /* CJAlgorithm.swift */,
+			);
+			name = basic;
+			sourceTree = "<group>";
+		};
 		206FFC1F1DDC1522006FBD62 = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +94,9 @@
 		206FFC2A1DDC1522006FBD62 /* QTFeatureAdPathGenerator */ = {
 			isa = PBXGroup;
 			children = (
+				2098A5DF1E4580E400D46B4C /* Maths */,
+				206B62281E34BD0C00D5EBC0 /* basic */,
+				206B62251E34BB7700D5EBC0 /* fitting */,
 				20DCA7C71E0D2C6500B70581 /* Interpolation */,
 				206FFC2B1DDC1522006FBD62 /* AppDelegate.swift */,
 				20BF2BEB1DE6F65100226835 /* CJTitleBarController.swift */,
@@ -81,10 +110,17 @@
 			path = QTFeatureAdPathGenerator;
 			sourceTree = "<group>";
 		};
+		2098A5DF1E4580E400D46B4C /* Maths */ = {
+			isa = PBXGroup;
+			children = (
+				2098A5E01E45810100D46B4C /* CJMatrix.swift */,
+			);
+			name = Maths;
+			sourceTree = "<group>";
+		};
 		20DCA7C71E0D2C6500B70581 /* Interpolation */ = {
 			isa = PBXGroup;
 			children = (
-				20DEA7B21DDC670F0081AEA4 /* CJInterpolation.swift */,
 				20DCA7C81E0D2CDF00B70581 /* CJSplineInterpolation.swift */,
 				20DAC2F71E12503700B7E11F /* CJPolynomialInterpolation.swift */,
 			);
@@ -180,11 +216,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				206FFC2E1DDC1522006FBD62 /* ViewController.swift in Sources */,
+				206B622A1E34BD3900D5EBC0 /* CJAlgorithm.swift in Sources */,
 				20DEA7B31DDC670F0081AEA4 /* CJInterpolation.swift in Sources */,
+				2098A5E11E45810100D46B4C /* CJMatrix.swift in Sources */,
 				20DCA7C91E0D2CDF00B70581 /* CJSplineInterpolation.swift in Sources */,
 				206FFC3B1DDC2A00006FBD62 /* CJTracePanelView.swift in Sources */,
+				206B62271E34BCB800D5EBC0 /* CJFitting.swift in Sources */,
 				206FFC2C1DDC1522006FBD62 /* AppDelegate.swift in Sources */,
 				20DAC2F81E12503700B7E11F /* CJPolynomialInterpolation.swift in Sources */,
+				2098A5DE1E44679200D46B4C /* CJLinearRegressionFitting.swift in Sources */,
 				20BF2BEC1DE6F65100226835 /* CJTitleBarController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

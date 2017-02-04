@@ -8,39 +8,16 @@
 
 import Cocoa
 
-class CJInterpolationPoint<T>: NSObject {
-    public var input: Double
-    public var value: T
+protocol CJInterpolation: CJAlgorithm {
+    associatedtype Input
+    associatedtype Output
     
-    init(input: Double, value: T) {
-        self.input = input
-        self.value = value
-    }
-}
-
-protocol CJInterpolation {
-    associatedtype T
-    var fixedPoints: [CJInterpolationPoint<T>]? { get set }
-    
-    var pointCount: Int { get }
-    
-    var functionCount: Int { get }
-    
-    func solve()
-    
-    func interpolate(at input: T) -> T
+    func interpolate(at input: Input) -> Output
 }
 
 extension CJInterpolation {
-    var pointCount: Int {
-        get {
-            return (fixedPoints?.count)!
-        }
-    }
     
-    var functionCount: Int {
-        get {
-            return self.pointCount - 1
-        }
+    func estimateValue(at input: Self.Input) -> Self.Output {
+        return self.interpolate(at: input)
     }
 }
